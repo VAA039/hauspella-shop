@@ -1,7 +1,16 @@
 asgiref==3.11.1
-Django==6.0.6
+black==26.5.1
+click==8.4.2
+Django==5.2.15
+isort==8.0.1
+mypy_extensions==1.1.0
+packaging==26.2
+pathspec==1.1.1
 pillow==12.2.0
+platformdirs==4.10.0
 psycopg==3.3.4
 psycopg-binary==3.3.4
 python-dotenv==1.2.2
+pytokens==0.4.1
+ruff==0.15.19
 sqlparse==0.5.5
