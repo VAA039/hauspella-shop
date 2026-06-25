@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}HAUSPELLA — Современные товары для дома{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+
+    <div class="container hero__container">
+
+        <div class="hero__content">
+
+          <h1 class="hero__title">
+              Всё для дома.<br>
+              Продумано до мелочей.
+          </h1>
+
+          <p class="hero__subtitle">
+              HAUSPELLA — это современные товары для дома,
+              которые сочетают практичность, качество и лаконичный дизайн.
+          </p>
+
+            <a href="#" class="btn">
+                Перейти в каталог
+            </a>
+
+        </div>
+
+        <div class="hero__image">
+
+            <img src="{% static 'img/brand/logo.png' %}"
+                 alt="HAUSPELLA">
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
