@@ -24,4 +24,4 @@ media/
 *.log
 
 # Static (production)
-staticfiles/
+staticfiles/gi

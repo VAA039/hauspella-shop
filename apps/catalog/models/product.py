@@ -81,13 +81,13 @@ class Product(models.Model):
     # ------------------------------------------------------------------
 
     seo_title = models.CharField(
-        verbose_name="SEO Title",
+        verbose_name="SEO-заголовок",
         max_length=255,
         blank=True,
     )
 
     meta_description = models.TextField(
-        verbose_name="Meta Description",
+        verbose_name="Meta-описание",
         blank=True,
     )
 
@@ -95,6 +95,7 @@ class Product(models.Model):
         verbose_name="Главный поисковый запрос",
         max_length=255,
         blank=True,
+        help_text="Основной поисковый запрос."
     )
 
     search_aliases = models.TextField(
@@ -102,3 +103,55 @@ class Product(models.Model):
         blank=True,
         help_text="По одному запросу на строку.",
     )
+
+
+    # ------------------------------------------------------------------
+    # Marketing
+    # ------------------------------------------------------------------
+
+    competitive_advantages = models.TextField(
+        verbose_name="Конкурентные преимущества",
+        blank=True,
+        help_text="Конкретные преимущества товара перед конкурентами.",
+    )
+
+    unique_selling_proposition = models.TextField(
+        verbose_name="Уникальное торговое предложение (УТП)",
+        blank=True,
+        help_text="Главная идея продажи. Что получит покупатель после покупки.",
+    )
+
+    # ------------------------------------------------------------------
+    # Service
+    # ------------------------------------------------------------------
+
+    is_active = models.BooleanField(
+        verbose_name="Активен",
+        default=True,
+    )
+
+    created_at = models.DateTimeField(
+        verbose_name="Дата создания",
+        auto_now_add=True,
+    )
+
+    updated_at = models.DateTimeField(
+        verbose_name="Дата изменения",
+        auto_now=True,
+    )
+
+    class Meta:
+        verbose_name = "Товар"
+        verbose_name_plural = "Товары"
+        ordering = ["article"]
+
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse(
+            "catalog:product",
+            kwargs={"slug": self.slug},
+        )
+
