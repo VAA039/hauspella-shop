@@ -1,7 +1,12 @@
 from django.contrib import admin
 from django.utils.html import format_html
 
-from .models import Category, Product, ProductImage
+from .models import (
+    Category,
+    Product,
+    ProductImage,
+    ProductDocument,
+)
 
 
 
@@ -30,6 +35,39 @@ class ProductImageInline(admin.TabularInline):
         "sort_order",
         "image",
         "alt",
+    )
+
+    ordering = (
+        "sort_order",
+    )
+
+class ProductDocumentInline(admin.TabularInline):
+    model = ProductDocument
+
+    readonly_fields = (
+        "file_link",
+    )
+
+
+    def file_link(self, obj):
+        if obj.pk and obj.file:
+            return format_html(
+                '<a href="{}" target="_blank">📄 Открыть PDF</a>',
+                obj.file.url,
+            )
+        return "—"
+
+    file_link.short_description = "Документ"
+
+    extra = 0
+
+    fields = (
+        "file_link",
+        "file",
+        "title",
+        "document_type",
+        "language",
+        "sort_order",
     )
 
     ordering = (
@@ -67,6 +105,7 @@ class ProductAdmin(admin.ModelAdmin):
 
     inlines = (
         ProductImageInline,
+        ProductDocumentInline,
     )
 
     list_display = (
@@ -115,6 +154,35 @@ class ProductImageAdmin(admin.ModelAdmin):
         "product__article",
         "product__name",
         "alt",
+    )
+
+    ordering = (
+        "product",
+        "sort_order",
+    )
+
+
+@admin.register(ProductDocument)
+class ProductDocumentAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "product",
+        "title",
+        "document_type",
+        "language",
+        "sort_order",
+        "created_at",
+    )
+
+    list_filter = (
+        "document_type",
+        "language",
+    )
+
+    search_fields = (
+        "product__article",
+        "product__name",
+        "title",
     )
 
     ordering = (

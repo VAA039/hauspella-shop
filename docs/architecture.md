@@ -60,6 +60,26 @@ HAUSPELLA Data Standard
 Единый стандарт данных, используемый всеми проектами платформы.
 
 ---
+# Архитектура платформы
+
+```text
+HAUSPELLA Platform
+│
+├── HAUSPELLA ERP
+│   ├── Product Management
+│   ├── Supplier Management
+│   ├── Economics
+│   ├── Content
+│   └── Publication
+│
+└── HAUSPELLA Shop
+    ├── Catalog
+    ├── Product Page
+    ├── Cart
+    ├── Checkout
+    └── SEO
+```
+
 
 # Основной принцип
 

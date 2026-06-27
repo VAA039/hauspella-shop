@@ -23,3 +23,20 @@ Catalog
 ├── ProductVideo
 └── ProductRichContent
 ```
+
+
+## Product Media
+
+Все медиафайлы товара являются отдельными сущностями и принадлежат модели Product.
+
+Каждый тип медиа решает свою задачу и хранится независимо от остальных.
+
+
+```text
+Product
+│
+├── ProductImage
+├── ProductDocument
+├── ProductVideo
+└── ProductRichContent
+```

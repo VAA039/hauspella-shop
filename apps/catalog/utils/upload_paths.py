@@ -24,3 +24,21 @@ def product_image_upload_path(instance, filename):
     file_name = f"{slugify(product.slug)}{extension}"
 
     return f"products/{product.article}/images/{file_name}"
+
+
+def product_document_upload_path(instance, filename):
+    """
+    Формирует путь для хранения документа товара.
+
+    Пример:
+
+    media/
+        products/
+            HSP-000001/
+                documents/
+                    User Manual.pdf
+    """
+
+    product = instance.product
+
+    return f"products/{product.article}/documents/{filename}"
