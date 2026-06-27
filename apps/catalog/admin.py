@@ -6,6 +6,8 @@ from .models import (
     Product,
     ProductImage,
     ProductDocument,
+    ProductVideo,
+    ProductVideoSource,
 )
 
 
@@ -74,6 +76,35 @@ class ProductDocumentInline(admin.TabularInline):
         "sort_order",
     )
 
+class ProductVideoInline(admin.TabularInline):
+    model = ProductVideo
+
+    extra = 1
+
+    fields = (
+        "title",
+        "sort_order",
+    )
+
+    ordering = (
+        "sort_order",
+    )
+
+class ProductVideoSourceInline(admin.TabularInline):
+    model = ProductVideoSource
+
+    extra = 1
+
+    fields = (
+        "platform",
+        "url",
+        "sort_order",
+    )
+
+    ordering = (
+        "sort_order",
+    )
+
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = (
@@ -106,6 +137,7 @@ class ProductAdmin(admin.ModelAdmin):
     inlines = (
         ProductImageInline,
         ProductDocumentInline,
+        ProductVideoInline,
     )
 
     list_display = (
@@ -189,3 +221,35 @@ class ProductDocumentAdmin(admin.ModelAdmin):
         "product",
         "sort_order",
     )
+
+@admin.register(ProductVideo)
+class ProductVideoAdmin(admin.ModelAdmin):
+
+    inlines = (
+        ProductVideoSourceInline,
+    )
+
+    list_display = (
+        "product",
+        "title",
+        "sort_order",
+        "created_at",
+    )
+
+    list_filter = (
+        "product",
+    )
+
+    search_fields = (
+        "product__article",
+        "product__name",
+        "title",
+    )
+
+    ordering = (
+        "product",
+        "sort_order",
+    )
+
+
+
