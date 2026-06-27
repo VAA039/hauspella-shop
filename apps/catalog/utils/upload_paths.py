@@ -4,10 +4,6 @@ from django.utils.text import slugify
 
 
 
-from pathlib import Path
-
-from django.utils.text import slugify
-
 
 def product_image_upload_path(instance, filename):
     """
@@ -27,4 +23,4 @@ def product_image_upload_path(instance, filename):
 
     file_name = f"{slugify(product.slug)}{extension}"
 
-    return f"products/{product.article}/{file_name}"
+    return f"products/{product.article}/images/{file_name}"
