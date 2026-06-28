@@ -152,6 +152,23 @@
 
     </div>
 
+    {% if cart.items.exists %}
+
+        <div class="card-footer bg-white text-end">
+
+            <a
+                href="{% url 'orders:checkout' %}"
+                class="btn btn-success btn-lg"
+            >
+                Оформить заказ
+            </a>
+
+        </div>
+
+    {% endif %}
+
 </div>
 
 {% endblock %}
+
+
