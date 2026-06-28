@@ -1,37 +1,60 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>{% block title %}HAUSPELLA{% endblock %}</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="{% static 'css/variables.css' %}">
-    <link rel="stylesheet" href="{% static 'css/base.css' %}">
-    <link rel="stylesheet" href="{% static 'css/layout.css' %}">
-    <link rel="stylesheet" href="{% static 'css/components.css' %}">
+    <title>
+        {% block title %}
+            HAUSPELLA
+        {% endblock %}
+    </title>
 </head>
-
 <body>
 
-{% include "includes/header.html" %}
+<header>
+
+    <h1>HAUSPELLA</h1>
+
+    <nav>
+
+        <a href="{% url 'pages:home' %}">
+            Главная
+        </a>
+
+        |
+
+        <a href="{% url 'catalog:product_list' %}">
+            Каталог
+        </a>
+
+        |
+
+        <a href="{% url 'cart:detail' %}">
+            Корзина
+        </a>
+
+    </nav>
+
+    <hr>
+
+</header>
 
 <main>
 
-    {% block content %}
-    {% endblock %}
+{% block content %}
+
+{% endblock %}
 
 </main>
 
-{% include "includes/footer.html" %}
+<hr>
 
-<script src="{% static 'js/main.js' %}"></script>
+<footer>
+
+    <p>
+        © HAUSPELLA
+    </p>
+
+</footer>
 
 </body>
 </html>

@@ -10,4 +10,10 @@ urlpatterns = [
         views.cart_detail,
         name="detail",
     ),
+
+    path(
+        "add/<int:product_id>/",
+        views.add_to_cart,
+        name="add",
+    ),
 ]
