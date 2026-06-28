@@ -1,6 +1,8 @@
 from django.db import transaction
 
-from .models import Cart
+from apps.catalog.models import Product
+
+from .models import Cart, CartItem
 
 
 class CartService:
@@ -20,3 +22,30 @@ class CartService:
         )
 
         return cart
+
+    @staticmethod
+    @transaction.atomic
+    def add_product(user, product):
+        """
+        Добавить товар в корзину пользователя.
+        """
+
+        cart = CartService.get_or_create_cart(
+            user,
+        )
+
+        cart_item, created = CartItem.objects.get_or_create(
+            cart=cart,
+            product=product,
+            defaults={
+                "quantity": 1,
+            },
+        )
+
+        if not created:
+            cart_item.quantity += 1
+            cart_item.save(
+                update_fields=("quantity", "updated_at"),
+            )
+
+        return cart_item
