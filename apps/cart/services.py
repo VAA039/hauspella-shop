@@ -49,3 +49,18 @@ class CartService:
             )
 
         return cart_item
+    
+
+    @staticmethod
+    @transaction.atomic
+    def remove_product(user, product):
+        """
+        Удалить товар из корзины пользователя.
+        """
+
+        cart = CartService.get_or_create_cart(user)
+
+        CartItem.objects.filter(
+            cart=cart,
+            product=product,
+        ).delete()
