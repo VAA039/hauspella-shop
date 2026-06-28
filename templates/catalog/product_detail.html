@@ -6,43 +6,83 @@
 
 {% block content %}
 
-<h1>{{ product.name }}</h1>
+<div class="row g-5">
 
-<hr>
+    <div class="col-lg-5">
 
-<p>
-    Цена:
+        {% with image=product.images.first %}
+
+            {% if image %}
+
+                <img
+                    src="{{ image.image.url }}"
+                    alt="{{ image.alt }}"
+                    class="img-fluid rounded-4 shadow-sm w-100"
+                    style="aspect-ratio: 3 / 4; object-fit: cover;"
+                >
+
+            {% else %}
+
+                <div
+                    class="d-flex align-items-center justify-content-center bg-light rounded-4"
+                    style="aspect-ratio: 3 / 4;"
+                >
+                    <span class="text-muted">
+                        Нет изображения
+                    </span>
+                </div>
+
+            {% endif %}
+
+        {% endwith %}
+
+    </div>
+
+    <div class="col-lg-7">
+
+        <h1 class="mb-3">
+            {{ product.name }}
+        </h1>
+
+        <h2 class="display-6 fw-bold mb-4">
     {{ product.price }} ₽
-</p>
+        </h2>
 
-<form
-    action="{% url 'cart:add' product.pk %}"
-    method="post"
->
+        <form
+            action="{% url 'cart:add' product.pk %}"
+            method="post"
+            class="mb-4"
+        >
+            {% csrf_token %}
 
-    {% csrf_token %}
+            <button
+                type="submit"
+                class="btn btn-dark btn-lg rounded-3"
+            >
+                🛒 Добавить в корзину
+            </button>
 
-    <button type="submit">
+        </form>
 
-        🛒 Добавить в корзину
+        {% if product.description %}
 
-    </button>
+            <h4>Описание</h4>
 
-</form>
+            <p>
+                {{ product.description }}
+            </p>
 
+        {% endif %}
 
-{% if product.description %}
-<p>
-    {{ product.description }}
-</p>
-{% endif %}
+        <a
+            href="{% url 'catalog:product_list' %}"
+            class="btn btn-outline-secondary mt-3"
+        >
+            ← Вернуться в каталог
+        </a>
 
-<hr>
+    </div>
 
-<p>
-    <a href="{% url 'catalog:product_list' %}">
-        ← Вернуться в каталог
-    </a>
-</p>
+</div>
 
 {% endblock %}

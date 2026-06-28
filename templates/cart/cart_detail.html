@@ -1,52 +1,137 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>Корзина</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-<h1>Корзина</h1>
+{% block title %}
+Корзина
+{% endblock %}
 
-<hr>
+{% block content %}
 
-<p><strong>Пользователь:</strong> {{ cart.user.email }}</p>
+<h1 class="mb-4">
+    Корзина
+</h1>
 
-<p><strong>Количество позиций:</strong> {{ cart.items_count }}</p>
+<div class="card shadow-sm rounded-4">
 
-<p><strong>Общая стоимость:</strong> {{ cart.total_price }} ₽</p>
-<hr>
+    <div class="card-body">
 
-<h2>Товары</h2>
+        <div class="row mb-4">
 
-{% for item in cart.items.all %}
+            <div class="col-md-6">
+                <strong>Пользователь:</strong><br>
+                {{ cart.user.email }}
+            </div>
 
-<p>
-    <strong>{{ item.product.name }}</strong>
-</p>
+            <div class="col-md-3">
+                <strong>Товаров:</strong><br>
+                {{ cart.items_count }}
+            </div>
 
-<p>
-    Цена:
-    {{ item.product.price }} ₽
-</p>
+            <div class="col-md-3">
+                <strong>Итого:</strong><br>
+                    <span class="fs-3 fw-bold">
+                        {{ cart.total_price }} ₽
+                    </span>
+            </div>
 
-<p>
-    Количество:
-    {{ item.quantity }}
-</p>
+        </div>
 
-<p>
-    Стоимость:
-    {{ item.total_price }} ₽
-</p>
+        <hr>
 
-<hr>
+        {% for item in cart.items.all %}
 
-    {% empty %}
+            <div class="row align-items-center py-3">
 
-    <p>Корзина пуста.</p>
 
-    {% endfor %}
-    
-</body>
-</html>
+
+
+
+<div class="col-md-6">
+
+    <div class="d-flex align-items-center">
+
+        {% with image=item.product.images.first %}
+
+            {% if image %}
+
+                <img
+                    src="{{ image.image.url }}"
+                    alt="{{ image.alt }}"
+                    class="rounded-3 me-3"
+                    style="width: 90px; aspect-ratio: 3 / 4; object-fit: cover;"
+                >
+
+            {% else %}
+
+                <div
+                    class="rounded-3 bg-light d-flex align-items-center justify-content-center me-3"
+                    style="width: 90px; aspect-ratio: 3 / 4;"
+                >
+                    <small class="text-muted">
+                        Нет фото
+                    </small>
+                </div>
+
+            {% endif %}
+
+        {% endwith %}
+
+        <div>
+
+            <h5 class="mb-1">
+                {{ item.product.name }}
+            </h5>
+
+            <small class="text-muted">
+                {{ item.product.price }} ₽ за штуку
+            </small>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+                <div class="col-md-2 text-center">
+
+                    <strong>
+                        × {{ item.quantity }}
+                    </strong>
+
+                </div>
+
+                <div class="col-md-4 text-end">
+
+                    <span class="fs-4 fw-bold">
+                        {{ item.total_price }} ₽
+                    </span>
+
+                </div>
+
+            </div>
+
+            {% if not forloop.last %}
+                <hr>
+            {% endif %}
+
+        {% empty %}
+
+            <div class="text-center py-5">
+
+                <h4 class="text-muted">
+                    Корзина пуста
+                </h4>
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}
