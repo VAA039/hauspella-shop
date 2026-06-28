@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block title %}
+Подтверждение заказа
+{% endblock %}
+
+{% block content %}
+
+<h1 class="mb-4">
+    Подтверждение заказа
+</h1>
+
+<div class="card shadow-sm rounded-4">
+
+    <div class="card-body">
+
+        {% for item in cart.items.all %}
+
+            <div class="row align-items-center py-3">
+
+                <div class="col-md-6">
+
+                    <div class="d-flex align-items-center">
+
+                        {% with image=item.product.images.first %}
+
+                            {% if image %}
+
+                                <img
+                                    src="{{ image.image.url }}"
+                                    alt="{{ image.alt }}"
+                                    class="rounded-3 me-3"
+                                    style="width: 90px; aspect-ratio: 3 / 4; object-fit: cover;"
+                                >
+
+                            {% endif %}
+
+                        {% endwith %}
+
+                        <div>
+
+                            <h5 class="mb-1">
+                                {{ item.product.name }}
+                            </h5>
+
+                            <small class="text-muted">
+                                {{ item.product.price }} ₽ за штуку
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-2 text-center">
+
+                    <strong>
+                        {{ item.quantity }} шт.
+                    </strong>
+
+                </div>
+
+                <div class="col-md-4 text-end">
+
+                    <span class="fs-4 fw-bold">
+                        {{ item.total_price }} ₽
+                    </span>
+
+                </div>
+
+            </div>
+
+            {% if not forloop.last %}
+                <hr>
+            {% endif %}
+
+        {% endfor %}
+
+    </div>
+
+    <div class="card-footer bg-white">
+
+        <div class="d-flex justify-content-between align-items-center">
+
+            <span class="fs-4 fw-bold">
+                Итого: {{ cart.total_price }} ₽
+            </span>
+
+            <form
+                method="post"
+                action="{% url 'orders:confirm' %}"
+            >
+
+                {% csrf_token %}
+
+                <button
+                    type="submit"
+                    class="btn btn-success btn-lg"
+                >
+                    Подтвердить заказ
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

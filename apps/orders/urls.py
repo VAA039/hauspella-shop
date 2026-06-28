@@ -12,6 +12,12 @@ urlpatterns = [
     ),
 
     path(
+        "confirm/",
+        views.confirm_order,
+        name="confirm",
+    ),
+
+    path(
         "success/",
         views.success,
         name="success",
