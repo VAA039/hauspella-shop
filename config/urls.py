@@ -26,6 +26,11 @@ urlpatterns = [
     path("", include("apps.pages.urls")),
 
     path(
+        "catalog/",
+        include("apps.catalog.urls"),
+    ),
+
+    path(
         "cart/",
         include("apps.cart.urls"),
     ),

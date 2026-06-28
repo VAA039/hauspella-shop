@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ product.name }}</title>
+</head>
+<body>
+
+<h1>{{ product.name }}</h1>
+
+<hr>
+
+<p>
+    Цена:
+    {{ product.price }} ₽
+</p>
+
+<p>
+    {{ product.description }}
+</p>
+
+<hr>
+
+<p>
+    <a href="{% url 'catalog:product_list' %}">
+        ← Вернуться в каталог
+    </a>
+</p>
+
+</body>
+</html>
