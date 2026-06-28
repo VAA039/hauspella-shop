@@ -6,30 +6,81 @@
 
 {% block content %}
 
-<h1>Каталог товаров</h1>
+<h1 class="mb-4">
+    Каталог товаров
+</h1>
 
-<hr>
+<div class="row">
 
-{% for product in products %}
+    {% for product in products %}
 
-<h2>{{ product.name }}</h2>
+    <div class="col-md-4 mb-4">
 
-<p>
-    Цена: {{ product.price }} ₽
-</p>
+        <div class="card h-100 shadow-sm rounded-4">
 
-<p>
-    <a href="{% url 'catalog:product_detail' product.pk %}">
-        Подробнее
-    </a>
-</p>
 
-<hr>
+          {% with image=product.images.first %}
 
-{% empty %}
+              {% if image %}
 
-<p>Товары пока отсутствуют.</p>
+                  <img
+                      src="{{ image.image.url }}"
+                      alt="{{ image.alt }}"
+                      class="card-img-top rounded-top-4"
+                      style="aspect-ratio: 3 / 4; object-fit: cover;"
+                  >
 
-{% endfor %}
+              {% else %}
+
+                  <div
+                      class="card-img-top d-flex align-items-center justify-content-center bg-light"
+                      style="aspect-ratio: 3 / 4;"
+                  >
+                      <span class="text-muted">
+                          Нет изображения
+                      </span>
+                  </div>
+
+              {% endif %}
+
+          {% endwith %}
+          
+            <div class="card-body">
+
+                <h5
+    class="card-title"
+    style="height: 3rem;"
+>
+                    {{ product.name }}
+                </h5>
+
+                <p class="card-text">
+                    <strong>{{ product.price }} ₽</strong>
+                </p>
+
+            </div>
+
+            <div class="card-footer bg-white border-0 rounded-bottom-4 p-3">
+
+                <a
+                    href="{% url 'catalog:product_detail' product.pk %}"
+                    class="btn btn-dark w-100"
+                >
+                    Подробнее
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% empty %}
+
+    <p>Товары отсутствуют.</p>
+
+    {% endfor %}
+
+</div>
 
 {% endblock %}
