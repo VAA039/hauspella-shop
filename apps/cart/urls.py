@@ -16,4 +16,23 @@ urlpatterns = [
         views.add_to_cart,
         name="add",
     ),
+
+
+    path(
+        "increase/<int:product_id>/",
+        views.increase_quantity,
+        name="increase",
+    ),
+
+    path(
+        "decrease/<int:product_id>/",
+        views.decrease_quantity,
+        name="decrease",
+    ),
+
+    path(
+        "remove/<int:product_id>/",
+        views.remove_from_cart,
+        name="remove",
+    ),
 ]

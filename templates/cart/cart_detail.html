@@ -41,74 +41,94 @@
 
             <div class="row align-items-center py-3">
 
+                <div class="col-md-6">
 
+                    <div class="d-flex align-items-center">
 
+                        {% with image=item.product.images.first %}
 
+                            {% if image %}
 
-<div class="col-md-6">
+                                <img
+                                    src="{{ image.image.url }}"
+                                    alt="{{ image.alt }}"
+                                    class="rounded-3 me-3"
+                                    style="width: 90px; aspect-ratio: 3 / 4; object-fit: cover;"
+                                >
 
-    <div class="d-flex align-items-center">
+                            {% else %}
 
-        {% with image=item.product.images.first %}
+                                <div
+                                    class="rounded-3 bg-light d-flex align-items-center justify-content-center me-3"
+                                    style="width: 90px; aspect-ratio: 3 / 4;"
+                                >
+                                    <small class="text-muted">
+                                        Нет фото
+                                    </small>
+                                </div>
 
-            {% if image %}
+                            {% endif %}
 
-                <img
-                    src="{{ image.image.url }}"
-                    alt="{{ image.alt }}"
-                    class="rounded-3 me-3"
-                    style="width: 90px; aspect-ratio: 3 / 4; object-fit: cover;"
-                >
+                        {% endwith %}
 
-            {% else %}
+                        <div>
 
-                <div
-                    class="rounded-3 bg-light d-flex align-items-center justify-content-center me-3"
-                    style="width: 90px; aspect-ratio: 3 / 4;"
-                >
-                    <small class="text-muted">
-                        Нет фото
-                    </small>
+                            <h5 class="mb-1">
+                                {{ item.product.name }}
+                            </h5>
+
+                            <small class="text-muted">
+                                {{ item.product.price }} ₽ за штуку
+                            </small>
+
+                        </div>
+
+                    </div>
+
                 </div>
-
-            {% endif %}
-
-        {% endwith %}
-
-        <div>
-
-            <h5 class="mb-1">
-                {{ item.product.name }}
-            </h5>
-
-            <small class="text-muted">
-                {{ item.product.price }} ₽ за штуку
-            </small>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-
-
-
 
                 <div class="col-md-2 text-center">
 
-                    <strong>
-                        × {{ item.quantity }}
-                    </strong>
+                    <div class="d-flex justify-content-center align-items-center">
+
+                        <a
+                            href="{% url 'cart:decrease' item.product.id %}"
+                            class="btn btn-outline-secondary btn-sm"
+                        >
+                            −
+                        </a>
+
+                        <span class="mx-3 fw-bold">
+                            {{ item.quantity }}
+                        </span>
+
+                        <a
+                            href="{% url 'cart:increase' item.product.id %}"
+                            class="btn btn-outline-secondary btn-sm"
+                        >
+                            +
+                        </a>
+
+                    </div>
 
                 </div>
 
                 <div class="col-md-4 text-end">
 
-                    <span class="fs-4 fw-bold">
-                        {{ item.total_price }} ₽
-                    </span>
+                    <div class="mb-2">
+
+                        <span class="fs-4 fw-bold">
+                            {{ item.total_price }} ₽
+                        </span>
+
+                    </div>
+
+                    <a
+                        href="{% url 'cart:remove' item.product.id %}"
+                        class="btn btn-outline-danger btn-sm"
+                    >
+                        🗑️ Удалить
+                    </a>
 
                 </div>
 

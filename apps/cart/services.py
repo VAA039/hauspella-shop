@@ -53,6 +53,64 @@ class CartService:
 
     @staticmethod
     @transaction.atomic
+    def increase_quantity(user, product):
+        """
+        Увеличить количество товара в корзине.
+        """
+
+        cart = CartService.get_or_create_cart(user)
+
+        cart_item = CartItem.objects.get(
+            cart=cart,
+            product=product,
+        )
+
+        cart_item.quantity += 1
+
+        cart_item.save(
+            update_fields=(
+                "quantity",
+                "updated_at",
+            ),
+        )
+
+        return cart_item
+
+
+    @staticmethod
+    @transaction.atomic
+    def decrease_quantity(user, product):
+        """
+        Уменьшить количество товара в корзине.
+        """
+
+        cart = CartService.get_or_create_cart(user)
+
+        cart_item = CartItem.objects.get(
+            cart=cart,
+            product=product,
+        )
+
+        if cart_item.quantity > 1:
+
+            cart_item.quantity -= 1
+
+            cart_item.save(
+                update_fields=(
+                    "quantity",
+                    "updated_at",
+                ),
+            )
+
+        else:
+            cart_item.delete()
+
+
+
+
+
+    @staticmethod
+    @transaction.atomic
     def remove_product(user, product):
         """
         Удалить товар из корзины пользователя.
