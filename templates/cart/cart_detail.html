@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Корзина</title>
+</head>
+<body>
+
+<h1>Корзина</h1>
+
+<hr>
+
+<p><strong>Пользователь:</strong> {{ cart.user.email }}</p>
+
+<p><strong>Количество позиций:</strong> {{ cart.items_count }}</p>
+
+<p><strong>Общая стоимость:</strong> {{ cart.total_price }} ₽</p>
+<hr>
+
+<h2>Товары</h2>
+
+{% for item in cart.items.all %}
+
+<p>
+    <strong>{{ item.product.name }}</strong>
+</p>
+
+<p>
+    Цена:
+    {{ item.product.price }} ₽
+</p>
+
+<p>
+    Количество:
+    {{ item.quantity }}
+</p>
+
+<p>
+    Стоимость:
+    {{ item.total_price }} ₽
+</p>
+
+<hr>
+
+    {% empty %}
+
+    <p>Корзина пуста.</p>
+
+    {% endfor %}
+    
+</body>
+</html>
