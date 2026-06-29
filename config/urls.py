@@ -39,6 +39,9 @@ urlpatterns = [
     "orders/",
     include("apps.orders.urls"),
     ),
+
+    path("account/", include("apps.accounts.urls")),
+
 ]
 
 if settings.DEBUG:
