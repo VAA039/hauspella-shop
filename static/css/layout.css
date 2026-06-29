@@ -73,3 +73,52 @@ main{
     font-size:.9rem;
 
 }
+
+
+/* ==========================
+   Hero
+========================== */
+
+.hero {
+
+    padding: 50px 0;
+
+}
+
+.hero__container {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 60px;
+
+}
+
+.hero__content {
+
+    flex: 1;
+
+}
+
+.hero__image {
+
+    flex: 1;
+
+    display: flex;
+
+    justify-content: center;
+
+}
+
+.hero__image img {
+
+    max-width: 580px;
+
+    width: 100%;
+
+    height: auto;
+
+}

@@ -12,9 +12,9 @@ urlpatterns = [
     ),
 
     path(
-    "<int:order_id>/",
-    views.order_detail,
-    name="detail",
+        "<int:order_id>/",
+        views.order_detail,
+        name="detail",
     ),
 
     path(

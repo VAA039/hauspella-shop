@@ -22,7 +22,8 @@
               которые сочетают практичность, качество и лаконичный дизайн.
           </p>
 
-            <a href="#" class="btn">
+            <a href="{% url 'catalog:product_list' %}"
+    class="btn">
                 Перейти в каталог
             </a>
 
@@ -30,8 +31,11 @@
 
         <div class="hero__image">
 
-            <img src="{% static 'img/brand/logo.png' %}"
-                 alt="HAUSPELLA">
+            <img
+                src="{% static 'img/brand/logo.png' %}"
+                alt="HAUSPELLA"
+                class="img-fluid"
+            >
 
         </div>
 
