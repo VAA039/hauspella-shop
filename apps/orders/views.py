@@ -1,9 +1,52 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect, render
+from django.shortcuts import (
+    get_object_or_404,
+    redirect,
+    render,
+)
 
 from apps.cart.services import CartService
 
 from .services import OrderService
+from .models import Order
+
+@login_required
+def order_list(request):
+    """
+    Список заказов пользователя.
+    """
+
+    orders = Order.objects.filter(
+        user=request.user,
+    )
+
+    return render(
+        request,
+        "orders/order_list.html",
+        {
+            "orders": orders,
+        },
+    )
+
+@login_required
+def order_detail(request, order_id):
+    """
+    Детальная информация о заказе.
+    """
+
+    order = get_object_or_404(
+        Order,
+        id=order_id,
+        user=request.user,
+    )
+
+    return render(
+        request,
+        "orders/order_detail.html",
+        {
+            "order": order,
+        },
+    )
 
 @login_required
 def checkout(request):
@@ -25,7 +68,6 @@ def checkout(request):
             "cart": cart,
         },
     )
-
 
 @login_required
 def confirm_order(request):
